@@ -63,7 +63,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/hello', function () {
 //     return view('post');   
 // });
-
+//here changed
 Route::get('/', function () {
     return view('welcome');
 });
