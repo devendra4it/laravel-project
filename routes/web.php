@@ -3,7 +3,14 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-
+function getUsers(){
+    return  [
+        1 => ['name' => 'Devendra', 'phone' => '8527626445', 'city' => 'Delhi'],
+        2 => ['name' => 'Ram', 'phone' => '8527626445', 'city' => 'Goa'],
+        3 => ['name' => 'Shyam', 'phone' => '8527626445', 'city' => 'Mumbai'],
+        4 => ['name' => 'Mohan', 'phone' => '8527626445', 'city' => 'Pune'],
+        ];
+}
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -70,13 +77,7 @@ Route::get('/', function () {
 
 Route::get('/users', function () {
     //$name = "Devendra Sharma !";
-    $names = [
-            1 => ['name' => 'Devendra', 'phone' => '8527626445', 'city' => 'Delhi'],
-            2 => ['name' => 'Ram', 'phone' => '8527626445', 'city' => 'Goa'],
-            3 => ['name' => 'Shyam', 'phone' => '8527626445', 'city' => 'Mumbai'],
-            4 => ['name' => 'Mohan', 'phone' => '8527626445', 'city' => 'Pune'],
-            ];
-
+    $names = getUsers();
     return view('users',["user"=>$names, "city"=>"Delhi"]);
 
 
@@ -87,6 +88,14 @@ Route::get('/users', function () {
     // ->withUser($names)
     // ->withCity("Delhi");
 });
+
+Route::get('/user/{id}', function ($id) {
+    $users = getUsers();
+    abort_if(!isset($users[$id]),404);
+    $user = $users[$id];
+    return view('user',['id' => $user]);
+})->name('view.user');
+
 
 Route::get('/about', function () {
     return view('pages/about');
